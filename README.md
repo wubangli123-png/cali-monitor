@@ -2,6 +2,8 @@
 
 **Monitor de situación para la administración pública de Santiago de Cali, Colombia.**
 
+<img src="public/fc17a005-cf32-4b77-a988-fcd44110d42d.jpg" width="600">
+
 Cali Monitor agrega, clasifica y geolocaliza noticias de fuentes locales en tiempo real, permitiendo a equipos de gobierno tener una visión consolidada de lo que ocurre en la ciudad: dónde están ocurriendo los eventos, qué secretarías están involucradas y cómo evoluciona la actividad informativa a lo largo del día.
 
 ---
