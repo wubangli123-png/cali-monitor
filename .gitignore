@@ -30,8 +30,17 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — never commit secrets
+.env
+.env.*
+.env.local
+.env.*.local
+
+# GIS source files (large binaries — converted GeoJSON in /public is sufficient)
+MapsCali/*.dbf
+MapsCali/*.shp
+MapsCali/*.shx
+MapsCali/*.cst
 
 # vercel
 .vercel

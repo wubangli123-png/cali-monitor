@@ -1,0 +1,21 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import type { NeighborhoodArticle } from "@/lib/stats";
+
+const BarriosMap = dynamic(
+  () => import("./BarriosMap").then((m) => m.BarriosMap),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center h-[500px] text-sm"
+        style={{ color: "var(--text-muted)" }}>
+        Cargando mapa…
+      </div>
+    ),
+  }
+);
+
+export function MapPanel({ articles }: { articles: NeighborhoodArticle[] }) {
+  return <BarriosMap articles={articles} />;
+}

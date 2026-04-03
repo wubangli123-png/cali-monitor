@@ -19,6 +19,24 @@ export const RSS_SOURCES: FeedSource[] = [
     color: "indigo",
   },
   {
+    name: "90 Minutos",
+    url: "https://news.google.com/rss/search?q=site:90minutos.co&hl=es&gl=CO&ceid=CO:es",
+    filterRequired: true,
+    color: "yellow",
+  },
+  {
+    name: "Q'Hubo Cali",
+    url: "https://qhubocali.com/feed/",
+    filterRequired: false,
+    color: "green",
+  },
+  {
+    name: "Occidente",
+    url: "https://occidente.co/cali/feed/",
+    filterRequired: false,
+    color: "teal",
+  },
+  {
     name: "El Tiempo - Cali",
     url: "https://www.eltiempo.com/rss/colombia_cali.xml",
     filterRequired: false,
