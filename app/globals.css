@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --bg-base:       #0a0700;
-  --bg-card:       #110e00;
-  --bg-card-hover: #181200;
-  --border:        #3d2800;
-  --text-primary:  #ede0c4;   /* warm cream — main reading text */
-  --text-muted:    #8a7050;   /* muted warm gray for timestamps, secondary */
-  --accent:        #ffb000;   /* pure amber — structural chrome */
-  --amber-bright:  #ffd000;
-  --amber-dim:     #a06800;
+  --bg-base:       #020912;
+  --bg-card:       #06111f;
+  --bg-card-hover: #0b1a2e;
+  --border:        #1a3050;
+  --text-primary:  #dde8f5;   /* light blue-white — reading text */
+  --text-muted:    #4d6e8a;   /* muted blue-gray */
+  --accent:        #1f70c1;   /* IBM Blue 60 */
+  --accent-bright: #4589ff;   /* IBM Blue 40 */
+  --accent-dim:    #0a3d6b;   /* IBM Blue dark */
 }
 
 /* ── Scanline overlay ── */
@@ -23,8 +23,8 @@ body::after {
     to bottom,
     transparent 0px,
     transparent 3px,
-    rgba(0, 0, 0, 0.13) 3px,
-    rgba(0, 0, 0, 0.13) 4px
+    rgba(0, 0, 0, 0.10) 3px,
+    rgba(0, 0, 0, 0.10) 4px
   );
 }
 
@@ -50,17 +50,18 @@ body {
   border: 1px solid var(--border);
 }
 
-.terminal-panel-header {
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+/* ── Section title inside panels ── */
+.panel-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bg-base);
-  background-color: var(--amber-dim);
-  padding: 3px 10px 3px 8px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  color: var(--accent-bright);
+  padding-bottom: 10px;
   margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* ── Scrollbar ── */
@@ -73,18 +74,4 @@ body {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
-.cursor-blink {
-  animation: blink 1.2s step-end infinite;
-}
-
-/* ── Flicker (very subtle glow) ── */
-@keyframes crt-flicker {
-  0%   { opacity: 1; }
-  92%  { opacity: 1; }
-  93%  { opacity: 0.96; }
-  94%  { opacity: 1; }
-  100% { opacity: 1; }
-}
-main {
-  animation: crt-flicker 8s linear infinite;
-}
+.cursor-blink { animation: blink 1.2s step-end infinite; }

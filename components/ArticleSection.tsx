@@ -67,7 +67,7 @@ export function ArticleSection({ articles }: { articles: Article[] }) {
           <FilterPill
             label="TODO"
             active={activeTopic === ALL}
-            color="#ffb000"
+            color="#4589ff"
             onClick={() => setActiveTopic(ALL)}
           />
           {topics.map((topic) => (
@@ -93,7 +93,7 @@ export function ArticleSection({ articles }: { articles: Article[] }) {
             <FilterPill
               label="TODOS"
               active={activeNeighborhood === ALL}
-              color="#7a5200"
+              color="#4d6e8a"
               onClick={() => setActiveNeighborhood(ALL)}
             />
             {neighborhoods.map((nbh) => (
@@ -101,7 +101,7 @@ export function ArticleSection({ articles }: { articles: Article[] }) {
                 key={nbh}
                 label={nbh}
                 active={activeNeighborhood === nbh}
-                color="#ffb000"
+                color="#33b1ff"
                 onClick={() => setActiveNeighborhood(activeNeighborhood === nbh ? ALL : nbh)}
               />
             ))}

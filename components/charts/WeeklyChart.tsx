@@ -7,7 +7,7 @@ import { DayBucket } from "@/lib/stats";
 
 export function WeeklyChart({ data }: { data: DayBucket[] }) {
   if (!data.length) return (
-    <p className="text-xs py-6" style={{ color: "var(--text-muted)" }}>
+    <p className="text-sm py-6" style={{ color: "var(--text-muted)" }}>
       &gt; SIN DATOS AÚN_
     </p>
   );
@@ -15,16 +15,16 @@ export function WeeklyChart({ data }: { data: DayBucket[] }) {
   const maxCount = Math.max(...data.map((d) => d.count), 1);
 
   return (
-    <ResponsiveContainer width="100%" height={160}>
+    <ResponsiveContainer width="100%" height={180}>
       <LineChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
         <XAxis
           dataKey="date"
-          tick={{ fill: "#7a5200", fontSize: 9, fontFamily: "Share Tech Mono, monospace" }}
+          tick={{ fill: "#4d6e8a", fontSize: 10, fontFamily: "Share Tech Mono, monospace" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fill: "#7a5200", fontSize: 10, fontFamily: "Share Tech Mono, monospace" }}
+          tick={{ fill: "#4d6e8a", fontSize: 10, fontFamily: "Share Tech Mono, monospace" }}
           axisLine={false}
           tickLine={false}
           allowDecimals={false}
@@ -33,23 +33,23 @@ export function WeeklyChart({ data }: { data: DayBucket[] }) {
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: "#110e00",
-            border: "1px solid #3d2800",
+            backgroundColor: "#06111f",
+            border: "1px solid #1a3050",
             borderRadius: 0,
             fontFamily: "Share Tech Mono, monospace",
           }}
-          labelStyle={{ color: "#ffb000", fontSize: 11 }}
-          itemStyle={{ color: "#ffd700", fontSize: 11 }}
-          cursor={{ stroke: "#3d2800" }}
+          labelStyle={{ color: "#dde8f5", fontSize: 11 }}
+          itemStyle={{ color: "#4589ff", fontSize: 11 }}
+          cursor={{ stroke: "#1a3050" }}
           formatter={(v) => [v, "NOTICIAS"]}
         />
         <Line
           type="monotone"
           dataKey="count"
-          stroke="#ffb000"
-          strokeWidth={1.5}
-          dot={<Dot r={2} fill="#ffd700" stroke="#110e00" strokeWidth={1} />}
-          activeDot={{ r: 4, fill: "#ffd700" }}
+          stroke="#4589ff"
+          strokeWidth={2}
+          dot={<Dot r={3} fill="#4589ff" stroke="#06111f" strokeWidth={1} />}
+          activeDot={{ r: 5, fill: "#4589ff" }}
         />
       </LineChart>
     </ResponsiveContainer>

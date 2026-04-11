@@ -9,35 +9,23 @@ export function Header({
 }) {
   return (
     <header
-      className="sticky top-0 z-10 px-4 py-2"
+      className="sticky top-0 z-10 px-6 py-2"
       style={{
-        backgroundColor: "#0a0700",
+        backgroundColor: "#010810",
         borderBottom: "1px solid var(--border)",
       }}
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <span className="text-xs tracking-widest" style={{ color: "var(--amber-dim)" }}>
-            ▶
-          </span>
-          <div>
-            <h1 className="text-xs font-normal tracking-widest uppercase" style={{ color: "var(--text-primary)" }}>
-              SISTEMA DE MONITOREO MUNICIPAL
-              <span className="hidden sm:inline" style={{ color: "var(--text-muted)" }}>
-                {" "}::{" "}CALI, COL.
-              </span>
-            </h1>
-          </div>
-          <span
-            className="hidden sm:flex items-center gap-1.5 text-xs"
-            style={{ color: "var(--text-muted)" }}
-          >
-            <span
-              className="cursor-blink"
-              style={{ color: "#22ff55" }}
-            >
-              ●
+          <span style={{ color: "var(--accent-bright)" }}>▶</span>
+          <h1 className="text-sm tracking-widest uppercase" style={{ color: "var(--text-primary)" }}>
+            SISTEMA DE MONITOREO MUNICIPAL
+            <span className="hidden sm:inline" style={{ color: "var(--text-muted)" }}>
+              {" "}::{" "}CALI, COL.
             </span>
+          </h1>
+          <span className="hidden sm:flex items-center gap-1.5 text-xs" style={{ color: "var(--text-muted)" }}>
+            <span className="cursor-blink" style={{ color: "#42be65" }}>●</span>
             {" "}EN LÍNEA
           </span>
           <span className="text-xs" style={{ color: "var(--text-muted)" }}>

@@ -17,9 +17,7 @@ export function RefreshController({ fetchedAt }: { fetchedAt: string }) {
   const [isPending, startTransition] = useTransition();
 
   const doRefresh = useCallback(() => {
-    startTransition(() => {
-      router.refresh();
-    });
+    startTransition(() => { router.refresh(); });
     setRemaining(REFRESH_INTERVAL);
   }, [router]);
 
@@ -41,7 +39,7 @@ export function RefreshController({ fetchedAt }: { fetchedAt: string }) {
   return (
     <div className="flex items-center gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
       <span className="hidden sm:inline">ULT. ACT. {timeStr}</span>
-      <span style={{ color: isPending ? "#ffd700" : "var(--text-primary)", fontFamily: "inherit" }}>
+      <span style={{ color: isPending ? "var(--accent-bright)" : "var(--text-muted)" }}>
         {isPending ? "ACTUALIZANDO..." : `T-${formatCountdown(remaining)}`}
       </span>
       <button
@@ -49,14 +47,14 @@ export function RefreshController({ fetchedAt }: { fetchedAt: string }) {
         disabled={isPending}
         className="text-sm px-3 py-1 disabled:opacity-40 transition-all"
         style={{
-          color: "#0a0700",
-          backgroundColor: "#ffb000",
-          border: "2px solid #ffd700",
+          color: "#dde8f5",
+          backgroundColor: "var(--accent)",
+          border: "1px solid var(--accent-bright)",
           fontFamily: "inherit",
           letterSpacing: "0.05em",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffd700")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#ffb000")}
+        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--accent-bright)")}
+        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--accent)")}
       >
         {isPending ? "..." : "[ACTUALIZAR]"}
       </button>
