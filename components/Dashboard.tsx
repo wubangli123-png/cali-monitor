@@ -4,38 +4,34 @@ import { TOPIC_COLORS_HEX } from "./TopicBadge";
 import { WeeklyChart } from "./charts/WeeklyChart";
 import { WordCloud } from "./charts/WordCloud";
 import { MapPanel } from "./MapPanel";
-import { Newspaper, Clock, TrendingUp, Radio, MapPin } from "lucide-react";
 
-function StatCard({
-  label, value, icon, accent,
-}: {
-  label: string; value: number | string; icon: React.ReactNode; accent?: string;
-}) {
+/** Fill a string of n chars using █ and ░ */
+function asciBar(pct: number, total = 20): string {
+  const filled = Math.round((pct / 100) * total);
+  return "█".repeat(filled) + "░".repeat(total - filled);
+}
+
+function TerminalPanel({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-lg p-4 flex flex-col gap-2"
-      style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
-      <div className="flex items-center justify-between">
-        <span className="text-xs uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
-          {label}
-        </span>
-        <span style={{ color: accent ?? "var(--text-muted)" }}>{icon}</span>
-      </div>
-      <span className="text-3xl font-bold tabular-nums"
-        style={{ color: accent ?? "var(--text-primary)" }}>
-        {value}
-      </span>
+    <div className="terminal-panel p-4">
+      <div className="terminal-panel-header">▶ {label}</div>
+      {children}
     </div>
   );
 }
 
-function ChartPanel({ title, children }: { title: string; children: React.ReactNode }) {
+function KpiBlock({ label, value, accent }: { label: string; value: number | string; accent?: string }) {
   return (
-    <div className="rounded-lg p-4"
-      style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
-      <p className="text-xs uppercase tracking-widest mb-3" style={{ color: "var(--text-muted)" }}>
-        {title}
-      </p>
-      {children}
+    <div className="terminal-panel p-4 flex flex-col gap-1">
+      <span className="text-xs tracking-widest" style={{ color: "var(--text-muted)" }}>
+        // {label}
+      </span>
+      <span
+        className="text-3xl tabular-nums"
+        style={{ color: accent ?? "var(--text-primary)", lineHeight: 1.1 }}
+      >
+        {value}
+      </span>
     </div>
   );
 }
@@ -54,18 +50,18 @@ export function Dashboard({
   return (
     <section className="max-w-7xl mx-auto w-full px-4 pt-5 pb-2 flex flex-col gap-4">
 
-      {/* Site header */}
-      <div className="flex flex-col gap-1 pt-2 pb-1">
-        <h1 className="text-2xl font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>
-          Monitor de Situación para Cali
-        </h1>
-        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-          Creado por Nicolas Cardona &mdash;{" "}
+      {/* Site header block */}
+      <div className="flex flex-col gap-0.5 border-b pb-3" style={{ borderColor: "var(--border)" }}>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          // MONITOR DE SITUACIÓN — MUNICIPIO DE SANTIAGO DE CALI
+        </p>
+        <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+          // por Nicolas Cardona &nbsp;·&nbsp;{" "}
           <a
             href="https://github.com/cardonanl/cali-monitor"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "var(--accent)" }}
+            style={{ color: "var(--amber-dim)" }}
             className="hover:underline"
           >
             github.com/cardonanl/cali-monitor
@@ -75,90 +71,81 @@ export function Dashboard({
 
       {/* KPI row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard label="Total en BD" value={stats.total}
-          icon={<Newspaper className="w-4 h-4" />} accent="#38bdf8" />
-        <StatCard label="Últimas 24h" value={stats.last24h}
-          icon={<Clock className="w-4 h-4" />} accent="#4ade80" />
-        <StatCard label="Fuentes" value={stats.bySource.length}
-          icon={<Radio className="w-4 h-4" />} accent="#c084fc" />
-        <StatCard label="Tópicos" value={stats.byTopic.length}
-          icon={<TrendingUp className="w-4 h-4" />} accent="#fbbf24" />
+        <KpiBlock label="TOTAL EN BD"   value={stats.total}           accent="#ffb000" />
+        <KpiBlock label="ÚLTIMAS 24H"   value={stats.last24h}         accent="#ffd700" />
+        <KpiBlock label="FUENTES"       value={stats.bySource.length} accent="#ff8800" />
+        <KpiBlock label="TÓPICOS ACTIVOS" value={stats.byTopic.length} accent="#ffcc44" />
       </div>
 
       {/* Charts row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-        {/* Topic distribution — últimas 24h (horizontal bars) */}
-        <ChartPanel title="Distribución por tópico — últimas 24h">
+        {/* Topic distribution — ASCII bars */}
+        <TerminalPanel label="DISTRIBUCIÓN 24H">
           {stats.byTopic24h.length > 0 ? (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2.5">
               {stats.byTopic24h.map(({ topic, count }) => {
-                const color = TOPIC_COLORS_HEX[topic as Topic] ?? "#64748b";
+                const color = TOPIC_COLORS_HEX[topic as Topic] ?? "#7a5200";
                 const pct = Math.round((count / maxCount24h) * 100);
                 return (
-                  <div key={topic} className="flex items-center gap-3">
-                    <span className="text-xs w-28 shrink-0 truncate" style={{ color }}>{topic}</span>
-                    <div className="flex-1 h-1.5 rounded-full" style={{ backgroundColor: "var(--border)" }}>
-                      <div className="h-1.5 rounded-full transition-all"
-                        style={{ width: `${pct}%`, backgroundColor: color }} />
+                  <div key={topic} className="text-xs" style={{ color }}>
+                    <div className="flex items-center justify-between mb-0.5">
+                      <span className="truncate" style={{ maxWidth: "65%" }}>{topic}</span>
+                      <span style={{ color: "var(--text-muted)" }}>{count}</span>
                     </div>
-                    <span className="text-xs w-6 text-right tabular-nums"
-                      style={{ color: "var(--text-muted)" }}>{count}</span>
+                    <span className="tracking-tight" style={{ color: color + "cc", fontSize: "0.6rem" }}>
+                      {asciBar(pct)}
+                    </span>
                   </div>
                 );
               })}
             </div>
           ) : (
-            <p className="text-xs text-center py-6" style={{ color: "var(--text-muted)" }}>
-              Sin datos en las últimas 24h
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              &gt; SIN DATOS EN LAS ÚLTIMAS 24H_
             </p>
           )}
-        </ChartPanel>
+        </TerminalPanel>
 
         {/* AI daily summary */}
-        <ChartPanel title="Resumen del día — generado por IA">
+        <TerminalPanel label="RESUMEN IA — HOY">
           <div
-            className="text-sm leading-relaxed whitespace-pre-line overflow-auto"
-            style={{ color: "var(--text-primary)", maxHeight: 220 }}
+            className="text-xs leading-relaxed whitespace-pre-line overflow-auto"
+            style={{ color: "var(--text-primary)", maxHeight: 230, opacity: 0.9 }}
           >
             {dailySummary}
           </div>
-        </ChartPanel>
+        </TerminalPanel>
 
-        {/* Weekly activity line chart */}
-        <ChartPanel title="Noticias por día — última semana">
+        {/* Weekly activity */}
+        <TerminalPanel label="ACTIVIDAD SEMANAL">
           <WeeklyChart data={weekly} />
-        </ChartPanel>
+        </TerminalPanel>
 
       </div>
 
       {/* Word cloud */}
-      <ChartPanel title="Nube de palabras — últimas 24h">
+      <TerminalPanel label="TÉRMINOS FRECUENTES — 24H">
         <WordCloud data={words} />
-      </ChartPanel>
+      </TerminalPanel>
 
       {/* Barrios map */}
-      <div className="rounded-lg p-4"
-        style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border)" }}>
-        <div className="flex items-center gap-2 mb-3">
-          <MapPin className="w-3.5 h-3.5" style={{ color: "var(--text-muted)" }} />
-          <p className="text-xs uppercase tracking-widest" style={{ color: "var(--text-muted)" }}>
-            Mapa de noticias por barrio
-            {neighborhoodArticles.length > 0 && (
-              <span className="ml-2 normal-case" style={{ color: "var(--accent)" }}>
-                — {neighborhoodArticles.length} artículos ubicados
-              </span>
-            )}
-          </p>
+      <div className="terminal-panel p-4">
+        <div className="terminal-panel-header">
+          ▶ MAPA DE INCIDENCIAS POR BARRIO
+          {neighborhoodArticles.length > 0 && (
+            <span style={{ color: "var(--bg-base)" }}>
+              [{neighborhoodArticles.length} UBICADOS]
+            </span>
+          )}
         </div>
         {neighborhoodArticles.length === 0 ? (
-          <div className="flex items-center justify-center h-48 text-sm"
+          <div className="flex items-center justify-center h-48 text-xs"
             style={{ color: "var(--text-muted)" }}>
-            Aún no hay artículos con barrio detectado. Ejecuta{" "}
-            <code className="mx-1 px-1 rounded" style={{ backgroundColor: "var(--border)" }}>
+            &gt; SIN ARTÍCULOS CON BARRIO DETECTADO. EJECUTAR{" "}
+            <code className="mx-1 px-1" style={{ backgroundColor: "var(--border)", color: "var(--text-primary)" }}>
               POST /api/reclassify
-            </code>{" "}
-            para clasificar los artículos existentes.
+            </code>
           </div>
         ) : (
           <MapPanel articles={neighborhoodArticles} />

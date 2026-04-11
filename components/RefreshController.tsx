@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { RefreshCw } from "lucide-react";
 
 const REFRESH_INTERVAL = 30 * 60;
 
@@ -41,20 +40,23 @@ export function RefreshController({ fetchedAt }: { fetchedAt: string }) {
 
   return (
     <div className="flex items-center gap-3 text-xs" style={{ color: "var(--text-muted)" }}>
-      <span className="hidden sm:inline">Act. {timeStr}</span>
-      <span className="font-mono" style={{ color: isPending ? "#fbbf24" : "var(--accent)" }}>
-        {isPending ? "actualizando…" : formatCountdown(remaining)}
+      <span className="hidden sm:inline">ULT. ACT. {timeStr}</span>
+      <span style={{ color: isPending ? "#ffd700" : "var(--accent)", fontFamily: "inherit" }}>
+        {isPending ? "ACTUALIZANDO..." : `T-${formatCountdown(remaining)}`}
       </span>
       <button
         onClick={doRefresh}
         disabled={isPending}
-        className="flex items-center gap-1 px-2.5 py-1.5 rounded text-white text-xs font-medium transition-colors disabled:opacity-50"
-        style={{ backgroundColor: "var(--border)" }}
-        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#2d4a7a")}
-        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--border)")}
+        className="text-xs px-2.5 py-1 disabled:opacity-40 transition-colors"
+        style={{
+          color: "var(--bg-base)",
+          backgroundColor: "var(--amber-dim)",
+          border: "1px solid var(--text-muted)",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffb000")}
+        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--amber-dim)")}
       >
-        <RefreshCw className={`w-3 h-3 ${isPending ? "animate-spin" : ""}`} />
-        Actualizar
+        {isPending ? "..." : "[ACTUALIZAR]"}
       </button>
     </div>
   );

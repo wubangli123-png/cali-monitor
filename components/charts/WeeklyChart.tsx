@@ -7,8 +7,8 @@ import { DayBucket } from "@/lib/stats";
 
 export function WeeklyChart({ data }: { data: DayBucket[] }) {
   if (!data.length) return (
-    <p className="text-xs text-center py-6" style={{ color: "var(--text-muted)" }}>
-      Sin datos aún
+    <p className="text-xs py-6" style={{ color: "var(--text-muted)" }}>
+      &gt; SIN DATOS AÚN_
     </p>
   );
 
@@ -17,20 +17,14 @@ export function WeeklyChart({ data }: { data: DayBucket[] }) {
   return (
     <ResponsiveContainer width="100%" height={160}>
       <LineChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-        <defs>
-          <linearGradient id="lineGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.2} />
-            <stop offset="95%" stopColor="#38bdf8" stopOpacity={0} />
-          </linearGradient>
-        </defs>
         <XAxis
           dataKey="date"
-          tick={{ fill: "#64748b", fontSize: 9 }}
+          tick={{ fill: "#7a5200", fontSize: 9, fontFamily: "Share Tech Mono, monospace" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fill: "#64748b", fontSize: 10 }}
+          tick={{ fill: "#7a5200", fontSize: 10, fontFamily: "Share Tech Mono, monospace" }}
           axisLine={false}
           tickLine={false}
           allowDecimals={false}
@@ -38,19 +32,24 @@ export function WeeklyChart({ data }: { data: DayBucket[] }) {
           width={28}
         />
         <Tooltip
-          contentStyle={{ backgroundColor: "#0d1526", border: "1px solid #1e2f4d", borderRadius: 6 }}
-          labelStyle={{ color: "#e2e8f0", fontSize: 12 }}
-          itemStyle={{ color: "#38bdf8", fontSize: 11 }}
-          cursor={{ stroke: "#1e2f4d" }}
-          formatter={(v) => [v, "Noticias"]}
+          contentStyle={{
+            backgroundColor: "#110e00",
+            border: "1px solid #3d2800",
+            borderRadius: 0,
+            fontFamily: "Share Tech Mono, monospace",
+          }}
+          labelStyle={{ color: "#ffb000", fontSize: 11 }}
+          itemStyle={{ color: "#ffd700", fontSize: 11 }}
+          cursor={{ stroke: "#3d2800" }}
+          formatter={(v) => [v, "NOTICIAS"]}
         />
         <Line
           type="monotone"
           dataKey="count"
-          stroke="#38bdf8"
-          strokeWidth={2}
-          dot={<Dot r={3} fill="#38bdf8" stroke="#0d1526" strokeWidth={1} />}
-          activeDot={{ r: 5, fill: "#38bdf8" }}
+          stroke="#ffb000"
+          strokeWidth={1.5}
+          dot={<Dot r={2} fill="#ffd700" stroke="#110e00" strokeWidth={1} />}
+          activeDot={{ r: 4, fill: "#ffd700" }}
         />
       </LineChart>
     </ResponsiveContainer>

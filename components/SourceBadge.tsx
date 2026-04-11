@@ -1,20 +1,28 @@
-const SOURCE_COLORS: Record<string, string> = {
-  "Google News - Cali":  "bg-blue-900/40 text-blue-300 border border-blue-700/40",
-  "Google News - Valle": "bg-indigo-900/40 text-indigo-300 border border-indigo-700/40",
-  "90 Minutos":          "bg-yellow-900/40 text-yellow-300 border border-yellow-700/40",
-  "Q'Hubo Cali":         "bg-green-900/40 text-green-300 border border-green-700/40",
-  "Occidente":           "bg-teal-900/40 text-teal-300 border border-teal-700/40",
-  "Alcaldía de Cali":    "bg-purple-900/40 text-purple-300 border border-purple-700/40",
-  "El Tiempo - Cali":    "bg-orange-900/40 text-orange-300 border border-orange-700/40",
-  "RCN Radio":           "bg-red-900/40 text-red-300 border border-red-700/40",
+const SOURCE_COLORS_HEX: Record<string, string> = {
+  "Google News - Cali":  "#ffb000",
+  "Google News - Valle": "#ff9900",
+  "90 Minutos":          "#ffd700",
+  "Q'Hubo Cali":         "#ff8800",
+  "Occidente":           "#ffaa44",
+  "Alcaldía de Cali":    "#ffcc00",
+  "El Tiempo - Cali":    "#ff6600",
+  "RCN Radio":           "#ff4400",
 };
 
-const DEFAULT_COLOR = "bg-slate-800/40 text-slate-400 border border-slate-600/40";
+const DEFAULT_HEX = "#7a5200";
 
 export function SourceBadge({ source }: { source: string }) {
-  const color = SOURCE_COLORS[source] ?? DEFAULT_COLOR;
+  const color = SOURCE_COLORS_HEX[source] ?? DEFAULT_HEX;
   return (
-    <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${color}`}>
+    <span
+      className="inline-block px-1.5 py-0 text-xs"
+      style={{
+        color,
+        border: `1px solid ${color}66`,
+        backgroundColor: color + "14",
+        letterSpacing: "0.03em",
+      }}
+    >
       {source}
     </span>
   );
