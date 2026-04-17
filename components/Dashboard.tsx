@@ -4,6 +4,7 @@ import { TOPIC_COLORS_HEX } from "./TopicBadge";
 import { WeeklyChart } from "./charts/WeeklyChart";
 import { WordCloud } from "./charts/WordCloud";
 import { MapPanel } from "./MapPanel";
+import { NavTabs } from "./NavTabs";
 
 function KpiBlock({ label, value, color }: { label: string; value: number | string; color: string }) {
   return (
@@ -32,11 +33,14 @@ export function Dashboard({
     <section className="w-full px-6 pt-5 pb-2 flex flex-col gap-4">
 
       {/* ── Site header ── */}
-      <div className="flex flex-col gap-1 pb-4" style={{ borderBottom: "1px solid var(--border)" }}>
-        <h1 className="text-3xl tracking-wider uppercase" style={{ color: "var(--white)" }}>
-          ▶ Monitor de Situación
-        </h1>
-        <p className="text-base" style={{ color: "var(--yellow)" }}>
+      <div className="pb-4" style={{ borderBottom: "1px solid var(--border)" }}>
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <h1 className="text-3xl tracking-wider uppercase" style={{ color: "var(--white)" }}>
+            ▶ Monitor de Situación
+          </h1>
+          <NavTabs active="noticias" />
+        </div>
+        <p className="text-base mt-1" style={{ color: "var(--yellow)" }}>
           Municipio de Santiago de Cali &nbsp;·&nbsp;{" "}
           <a href="https://github.com/cardonanl/cali-monitor" target="_blank" rel="noopener noreferrer"
             style={{ color: "var(--green)" }} className="hover:underline">

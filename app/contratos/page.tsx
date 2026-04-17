@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { fetchContracts, getContractStats } from "@/lib/contracts";
 import { Header } from "@/components/Header";
+import { NavTabs } from "@/components/NavTabs";
 import { ContractsDashboard } from "@/components/ContractsDashboard";
 import { ContractFilters } from "@/components/ContractFilters";
 import { ContractsSection } from "@/components/ContractsSection";
@@ -15,20 +16,23 @@ export default async function ContratosPage({
   const contracts = await fetchContracts({
     desde,
     hasta,
-    limite: desde || hasta ? 200 : 20,
+    limite: desde || hasta ? 200 : 6,
   });
 
   const stats = getContractStats(contracts);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--bg-base)" }}>
-      <Header activePage="contratos" />
+      <Header />
 
-      <div className="flex flex-col gap-1 px-6 pt-5 pb-4" style={{ borderBottom: "1px solid var(--border)" }}>
-        <h1 className="text-3xl tracking-wider uppercase" style={{ color: "var(--white)" }}>
-          ▶ Contratos SECOP II
-        </h1>
-        <p className="text-base" style={{ color: "var(--yellow)" }}>
+      <div className="px-6 pt-5 pb-4" style={{ borderBottom: "1px solid var(--border)" }}>
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <h1 className="text-3xl tracking-wider uppercase" style={{ color: "var(--white)" }}>
+            ▶ Contratos SECOP II
+          </h1>
+          <NavTabs active="contratos" />
+        </div>
+        <p className="text-base mt-1" style={{ color: "var(--yellow)" }}>
           Municipio de Santiago de Cali &nbsp;·&nbsp;{" "}
           <a href="https://www.datos.gov.co/resource/jbjy-vk9h.json"
             target="_blank" rel="noopener noreferrer"
