@@ -21,7 +21,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--bg-base)" }}>
-      <Header total={total} fetchedAt={fetchedAt} />
+      <Header total={total} fetchedAt={fetchedAt} activePage="noticias" />
       <Dashboard stats={stats} weekly={weekly} words={words} neighborhoodArticles={neighborhoodArticles} dailySummary={dailySummary} />
 
       <ArticleSection articles={articles} />
